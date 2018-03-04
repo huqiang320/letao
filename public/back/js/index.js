@@ -1,6 +1,4 @@
-/**
- * Created by HUCC on 2018/3/2.
- */
+
 $(function () {
 
 
@@ -24,14 +22,14 @@ $(function () {
     series: [{
       name: '人数',
       type: 'bar',
-      data: [1000, 2000, 3333, 600, 4000, 2444]
+      data: [100, 200, 333, 600, 400, 244]
     }]
   };
 
   var option2 = {
     title : {
       text: '热门品牌销售',
-      subtext: '2017年6月',
+      subtext: '2018年3月',
       x:'center'
     },
     tooltip : {
@@ -41,7 +39,7 @@ $(function () {
     legend: {
       orient: 'vertical',
       left: 'left',
-      data: ['耐克','阿迪王','纽巴伦','新百伦','李宁']
+      data: ['耐克','阿迪王','adidas','新百伦','李宁']
     },
     series : [
       {
@@ -52,7 +50,7 @@ $(function () {
         data:[
           {value:335, name:'耐克'},
           {value:310, name:'阿迪王'},
-          {value:234, name:'纽巴伦'},
+          {value:234, name:'adidas'},
           {value:135, name:'新百伦'},
           {value:1548, name:'李宁'}
         ],

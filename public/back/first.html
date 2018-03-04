@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>登录页</title>
+    <title>用户管理</title>
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="lib/bootstrap-validator/css/bootstrapValidator.min.css">
     <link rel="stylesheet" href="lib/nprogress/nprogress.css">
@@ -33,8 +33,8 @@
                     <span class="glyphicon glyphicon-list"></span>
                     分类管理
                 </a>
-                <div class="second" style="display: none">
-                    <a href="first.html">一级分类</a>
+                <div class="second" style="display: block">
+                    <a href="first.html" class="now">一级分类</a>
                     <a href="second.html">二级分类</a>
                 </div>
             </li>
@@ -58,7 +58,7 @@
         <!--路径导航-->
         <ol class="breadcrumb">
             <li><a href="#">管理系统</a></li>
-            <li class="active">首页</li>
+            <li class="active">一级分类</li>
         </ol>
 
         <!--内容-->
@@ -96,8 +96,6 @@
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="lib/bootstrap-validator/js/bootstrapValidator.min.js"></script>
 <script src="lib/nprogress/nprogress.js"></script>
-<script src="lib/echarts/echarts.min.js"></script>
-<script src="js/index.js"></script>
 <script src="js/common.js"></script>
 <script src="js/login.js"></script>
 </body>

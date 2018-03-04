@@ -1,6 +1,4 @@
-/**
- * Created by HUCC on 2018/3/2.
- */
+
 
 $(function () {
 
@@ -55,12 +53,12 @@ $(function () {
 
   //退出功能
   $(".icon_logout").on("click", function () {
-    //显示模态框
+      //显示模态框
     $("#logoutModal").modal("show");
 
   });
 
-  //不要在事件里面注册事件
+  //不要在事件里面注册事件  如果非要在里面写 那么在on前面先解绑 off()；
   $(".btn_logout").on("click", function () {
     //需要告诉服务器，我需要退出，  让服务器把对应的session销毁
 
