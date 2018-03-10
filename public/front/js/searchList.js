@@ -1,16 +1,14 @@
 (function () {
 
-    var key= getSearch("key");
-    console.log(key);
+    var page=1;
+    var pageSize=4;
 
-    function render() {
-
-        $(".product").html('<div class="loading"></div>');
+    function render(callback) {
 
         var param = {};
 
-        param.page=1;
-        param.pageSize=100;
+        param.page=page;
+        param.pageSize=pageSize;
         param.proName = key;
 
         //对于price与num两个参数不一定要加
@@ -29,7 +27,7 @@
             var sortValue=temp.find("span").hasClass("fa-angle-down")?2:1;
 
             param[sortName]=sortValue;
-        }
+        };
         
         $.ajax({
             type:"get",
@@ -38,23 +36,63 @@
             success:function (info) {
                 // console.log(info);
                 setTimeout(function () {
-                    $('.product').html(template('tpl1',info))
+                   callback(info);
                 },1000);
 
             }
         })
     }
-    render();
+
+    //把地址栏中的key放到input 里面
+    var key=getSearch("key");
+    $(".search_input").val(key);
+
+    mui.init({
+        //配置下拉刷新和上拉加载的
+        pullRefresh : {
+            container:".mui-scroll-wrapper",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+            down : {
+                auto:true,
+                style:'circle',//必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
+                callback :function () {
+                    page=1;
+                    render(function (info) {
+                        //渲染数据
+                        $('.product').html(template('tpl1',info));
+                        //结束下拉刷新
+                        mui('.mui-scroll-wrapper').pullRefresh().endPulldownToRefresh();
+                        //重置上拉刷新
+                        mui('.mui-scroll-wrapper').pullRefresh().refresh(true);
+                    })
+                } //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+            },
+            up : {
+                callback:function () {
+                    page++;
+                    render(function (info) {
+                        if(info.data.length>0){
+                            $('.product').append(template("tpl1",info));
+                            mui('.mui-scroll-wrapper').pullRefresh().endPullupToRefresh(false);
+                        }else{
+                            mui('.mui-scroll-wrapper').pullRefresh().endPullupToRefresh(true);
+                        }
+                    })
+                }
+            }
+        }
+    });
+
 
     //功能二：点击搜索按钮
     //1. 直接获取到input框中的value值
     //2. 再次发送ajax请求。
-    $('.search_btn').on("click",function () {
+    $('.search_btn').on("tap",function () {
+        $(".lt_sort a").removeClass("now").find("span").removeClass("fa-angle-up").addClass("fa-angle-down");
         // console.log(666);
+        key=$('.search_input').val();
 
-        key=$(".search_input").val();
-
-        render();
+        //让容器再刷新一次即可
+        mui('.mui-scroll-wrapper').pullRefresh().pulldownLoading();
 
     })
 
@@ -75,7 +113,8 @@
            $(".lt_sort span").removeClass("fa-angle-up").addClass("fa-angle-down");
 
         }
-        render();
+        //让容器再刷新一次即可
+        mui('.mui-scroll-wrapper').pullRefresh().pulldownLoading();
 
     })
 

@@ -9,10 +9,8 @@
 
    function render() {
        var arr=getHistory();
-
-       arr = {arr:arr}
        // console.log(arr);
-       $(".lt_history").html( template("tpl", arr) );
+       $(".lt_history").html( template("tpl", {arr:arr}) );
    }
    render();
 
@@ -39,7 +37,8 @@
     //4. 删除数组中对应下标那项
     //5. 重新设置search_list的值
     //6. 重新渲染
-    $(".content").on("click",".btn_delete",function () {
+    $(".lt_history").on("click",".btn_delete",function () {
+        console.log(666);
 
         var that=this;
         mui.confirm("你确认要删除该项吗","温馨提示",["否","是"],function (e) {
@@ -71,7 +70,7 @@
            var value =$('.search_input').val().trim();
 
            $('.search_input').val("");
-           if(value===""){
+           if(value == ""){
                mui.toast("请输入关键字");
                return;
            }
@@ -84,7 +83,7 @@
                arr.splice(index,1);
            }
 
-           if(index>10){
+           if(arr.length>=10){
                //删除数组的最后一项
                arr.pop();
            }

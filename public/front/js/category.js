@@ -1,5 +1,6 @@
 (function () {
 
+
     $.ajax({
         type:'GET',
         url:' /category/queryTopCategory',
@@ -31,7 +32,14 @@
             dataType:'json',
             success:function (info) {
                 console.log(info);
+
+                mui(".mui-scroll-wrapper").scroll({
+                    indicators:false
+                });
+
                 $(".second").html( template("tmp2", info) );
+
+
             }
         })
     }
